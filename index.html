@@ -10,10 +10,50 @@
   </head>
   <body>
     <script>
-      var colors = ['red', 'lime', 'blue', 'magenta', 'white']
-      var color = Math.floor(Math.random() * colors.length)
-      document.body.style.backgroundColor = colors[color]
-      setTimeout(function() { window.scrollTo(0, 1) })
+      pick()
+
+      function pick() {
+        var color
+        var colors = ['red', 'lime', 'blue', 'magenta', 'white']
+        do {
+          color = colors[Math.floor(Math.random() * colors.length)]
+        } while(color === document.body.style.backgroundColor)
+
+        document.body.style.backgroundColor = color
+      }
+
+      var x0 = n = 0
+      var t0 = Date.now()
+      window.addEventListener('deviceorientation', function(event) {
+        var v = Math.abs(event.gamma - x0)
+        if (v > 270)
+          v = 360 - v
+
+        /*
+        document.body.innerText = `
+          alpha: ${event.alpha}
+          beta: ${event.beta}
+          gamma: ${event.gamma}
+        `
+        */
+
+        if (v > 16) {
+          var t = Date.now()
+          if (t - t0 < 100) {
+            n++
+            if (n > 6) {
+              pick()
+              n = 0
+            }
+          } else {
+            n = 0
+          }
+
+          t0 = t
+        }
+
+        x0 = event.gamma
+      })
     </script>
   </body>
 </html>
