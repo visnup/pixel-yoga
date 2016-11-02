@@ -10,9 +10,10 @@
   </head>
   <body>
     <script>
-      let colors = ['red', 'lime', 'blue', 'magenta', 'white']
-      let color = Math.floor(Math.random() * colors.length)
+      var colors = ['red', 'lime', 'blue', 'magenta', 'white']
+      var color = Math.floor(Math.random() * colors.length)
       document.body.style.backgroundColor = colors[color]
+      setTimeout(function() { window.scrollTo(0, 1) })
     </script>
   </body>
 </html>
