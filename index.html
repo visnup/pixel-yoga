@@ -4,9 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,user-scalable=no" />
     <title>Pixel Yoga</title>
-    <style type="text/css">
-      body { background-color: white }
-    </style>
   </head>
   <body>
     <script src="https://unpkg.com/shake.js@1.2.2"></script>
@@ -23,7 +20,7 @@
         document.body.style.backgroundColor = color
       }
 
-      (new Shake({ threshold: 10, timeout: 200 })).start()
+      (new Shake({ threshold: 8, timeout: 200 })).start()
 
       window.addEventListener('shake', pick)
     </script>
