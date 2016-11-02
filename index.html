@@ -22,12 +22,21 @@
         document.body.style.backgroundColor = color
       }
 
-      var x0 = n = 0
+      var n = 0
       var t0 = Date.now()
+      var x0 = y0 = z0 = 0
       window.addEventListener('deviceorientation', function(event) {
-        var v = Math.abs(event.gamma - x0)
-        if (v > 270)
-          v = 360 - v
+        var dx = Math.abs(event.alpha - x0)
+        var dy = Math.abs(event.beta  - y0)
+        var dz = Math.abs(event.gamma - z0)
+
+        var v = Math.max(dx, dy, dz)
+        if (v > 180) v = 360 - v
+        if (v > 90) v = 180 - v
+
+        x0 = event.alpha
+        y0 = event.beta
+        z0 = event.gamma
 
         /*
         document.body.innerText = `
@@ -38,9 +47,11 @@
         */
 
         if (v > 16) {
+          document.body.innerText = 'v' + v
           var t = Date.now()
-          if (t - t0 < 100) {
+          if (t - t0 < 300) {
             n++
+            document.body.innerText = n
             if (n > 6) {
               pick()
               n = 0
@@ -51,8 +62,6 @@
 
           t0 = t
         }
-
-        x0 = event.gamma
       })
     </script>
   </body>
